@@ -13,12 +13,20 @@ def home():
 
 @app.route("/messages")
 def messages():
-    rooms = ["South - UWaterloo Campus", "East - UWaterloo Campus", "West - UWaterloo Campus", "North - UWaterloo Campus"]
+    rooms = [{"text": "South - UWaterloo Campus", "name": "south-uwaterloo"}, {"text": "East - UWaterloo Campus", "name": "east-uwaterloo"}, {"text": "West - UWaterloo Campus", "name": "west-uwaterloo"}, {"text": "North - UWaterloo Campus", "name": "north-uwaterloo"}]
     return render_template("messages.html", rooms = rooms)
 
 @socketio.on("connect")
 def connect():
     print("Connected!")
+
+@socketio.on("sendMessage")
+def sendMessage(data):
+    emit("receiveMessage", {"message": data["message"], "user": data["user"]}, to=data["room"])
+
+@socketio.on("changeRoom")
+def changeRoom(data):
+    join_room(data["name"])
 
 if __name__ == "__main__":
     socketio.run(app, debug = True)

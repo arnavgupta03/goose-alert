@@ -10,18 +10,24 @@
 </head>
 <body onload="onLoad()">
     <h1>Messages</h1>
+    <div id="set-user">
+        <input id="username" type="text">
+        <button onclick='sessionStorage.setItem("user", document.getElementById("username").value)'>Set Username (only temporary)</button>
+    </div>
     <div id="rooms">
         {% for room in rooms %}
-            <button>{{ room }}</button>
+            <button id='{{ room["name"] }}' onclick="changeRoom(event.target.id)">{{ room["text"] }}</button>
         {% endfor %}
     </div>
     <div id="chat-area">
+        <h3 id="room-title">No Active Room Currently</h3>
         <div id="chatbox">
             {% for message in messages %}
                 <p>{{ message["sender"] }} : {{ message["text"] }}</p>
             {% endfor %}
         </div>
-        <input type="text">
+        <input id="message" type="text">
+        <button onclick='sendMessage(document.getElementById("message").value)'>Send Message</button>
     </div>
 </body>
 </html>
