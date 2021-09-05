@@ -12,7 +12,8 @@ def home():
 
 @app.route("/messages")
 def messages():
-    return render_template("messages.html")
+    rooms = ["South - UWaterloo Campus", "East - UWaterloo Campus", "West - UWaterloo Campus", "North - UWaterloo Campus"]
+    return render_template("messages.html", rooms = rooms)
 
 if __name__ == "__main__":
     socketio.run(app, debug = True)
