@@ -1,3 +1,4 @@
+from logging import debug
 from flask import Flask, render_template, session
 import requests, os
 from flask_socketio import SocketIO, leave_room, send, emit, join_room
@@ -14,6 +15,10 @@ def home():
 def messages():
     rooms = ["South - UWaterloo Campus", "East - UWaterloo Campus", "West - UWaterloo Campus", "North - UWaterloo Campus"]
     return render_template("messages.html", rooms = rooms)
+
+@socketio.on("connect")
+def connect():
+    print("Connected!")
 
 if __name__ == "__main__":
     socketio.run(app, debug = True)
