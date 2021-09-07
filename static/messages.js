@@ -4,6 +4,8 @@ function onLoad() {
     socket.onconnect(() => {
         socket.emit("connect");
     });
+
+    sessionStorage.setItem("user", document.getElementById("username").innerHTML);
 }
 
 function sendMessage(data) {

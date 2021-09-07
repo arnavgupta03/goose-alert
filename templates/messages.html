@@ -6,20 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='messages.js') }}"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
     <title>Messages</title>
 </head>
 <body onload="onLoad()">
     <h1>Messages</h1>
-    <div id="set-user">
-        <input id="username" type="text">
-        <button onclick='sessionStorage.setItem("user", document.getElementById("username").value)'>Set Username (only temporary)</button>
+    <div id="set-user" class="set-user">
+        <p id="username">{{ username }}</p>
     </div>
-    <div id="rooms">
+    <div id="rooms" class="rooms">
         {% for room in rooms %}
             <button id='{{ room["name"] }}' onclick="changeRoom(event.target.id)">{{ room["text"] }}</button>
         {% endfor %}
     </div>
-    <div id="chat-area">
+    <div id="chat-area" class="chat-area">
         <h3 id="room-title">No Active Room Currently</h3>
         <div id="chatbox">
             {% for message in messages %}
@@ -29,5 +33,46 @@
         <input id="message" type="text">
         <button onclick='sendMessage(document.getElementById("message").value)'>Send Message</button>
     </div>
+    <style>
+    body{
+        margin:0;
+        padding: 0;
+        background: url(download.jpg);
+        background-size: cover;
+        font-family: sans-serif;
+        background-position:center;
+    }
+    .set-user{
+        margin: 0;
+        padding: 0 0 30px;
+        text-align: center;
+        font-size: 25px ;
+    }
+    h1{
+        margin: 0;
+        padding: 0 0 30px;
+        text-align: center;
+        font-size: 25px ;
+    }
+    .rooms{
+        margin: 0;
+        padding: 0 0 30px;
+        text-align: center;
+        font-size: 25px ;
+    }
+    .chat-area{
+        width:400px ;
+        height: 300px;
+        background: rgb(48, 62, 88);
+        color: aqua;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        padding: 60px 35px;
+        box-sizing: border-box;
+
+    }
+    </style>    
 </body>
 </html>
