@@ -14,26 +14,30 @@
     <title>Messages</title>
 </head>
 <body onload="onLoad()">
-    <h1>Messages</h1>
-    <div id="set-user" class="set-user">
-        <p id="username">{{ username }}</p>
-    </div>
-    <div id="rooms" class="rooms">
-        {% for room in rooms %}
-            <button id='{{ room["name"] }}' onclick="changeRoom(event.target.id)">{{ room["text"] }}</button>
-        {% endfor %}
-    </div>
-    <div id="chat-area" class="chat-area">
-        <h3 id="room-title">No Active Room Currently</h3>
-        <div id="chatbox">
-            {% for message in messages %}
-                <p>{{ message["sender"] }} : {{ message["text"] }}</p>
-            {% endfor %}
+    <div class="container">
+        <div class="row m-4 d-flex justify-content-center"><h1 class="display-1 text-center">Messages</h1></div>
+        <div id="set-user" class="set-user row m-4 d-flex justify-content-center">
+            <p id="username" class="display-4 text-center">{{ username }}</p>
         </div>
-        <input id="message" type="text">
-        <button onclick='sendMessage(document.getElementById("message").value)'>Send Message</button>
+        <div class="row">
+            <div id="rooms" class="rooms col-2">
+                {% for room in rooms %}
+                    <div class="row my-3"><button class="btn btn-primary" id='{{ room["name"] }}' onclick="changeRoom(event.target.id)">{{ room["text"] }}</button></div>
+                {% endfor %}
+            </div>
+            <div id="chat-area" class="chat-area mx-4 col-8">
+                <h3 id="room-title" class="text-center row">No Active Room Currently</h3>
+                <div id="chatbox" class="m-3">
+                    {% for message in messages %}
+                        <p class="row m-2 lead">{{ message["sender"] }} : {{ message["text"] }}</p>
+                    {% endfor %}
+                </div>
+                <input id="message" type="text" class="row">
+                <button onclick='sendMessage(document.getElementById("message").value)' class="btn btn-outline-primary row">Send Message</button>
+            </div>
+        </div>
     </div>
-    <style>
+    <!--<style>
     body{
         margin:0;
         padding: 0;
@@ -73,6 +77,6 @@
         box-sizing: border-box;
 
     }
-    </style>    
+    </style>-->
 </body>
 </html>
